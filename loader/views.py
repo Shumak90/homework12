@@ -24,12 +24,13 @@ def upload():
             "content": content
         })
         uploaded_json(posts)
-        file.save(f'uploads/images/{file_name}')
+
         if file_name.split(".")[-1] not in ["png", "jpeg", "jpg"]:
             logging.info("Загруженный файл - не картинка ")
-            return "<h1>Загруженный файл - не картинка /h1>"
+            return "<h1>Загруженный файл - не картинка </h1>"
     except FileNotFoundError:
         logging.error("Ошибка загрузки файла")
         return "<h1>Файл не найден</h1>"
     else:
+        file.save(f'uploads/images/{file_name}')
         return render_template("post_uploaded.html", pic=f'/uploads/images/{file_name}', content=content)
